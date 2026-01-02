@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ title|default("Keycloak + FastAPI") }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-row">
+            <a class="logo" href="/">Keycloak + FastAPI</a>
+            <nav>
+                {% if user %}
+                <a class="btn" href="/api/logout">Выйти</a>
+                {% else %}
+                <a class="btn" href="/api/login">Войти</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="site-main container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <small>© Keycloak + FastAPI sample</small>
+        </div>
+    </footer>
+</body>
+
+</html>

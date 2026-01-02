@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if user %}
+<section class="profile-card" data-user-id="{{ user.get('sub') or user.get('id') }}">
+    <h1>Добро пожаловать, {{ user.get('name') or user.get('preferred_username') }}</h1>
+    <p><strong>Электронная почта:</strong> {{ user.get('email') }}</p>
+    <p><strong>Username:</strong> {{ user.get('preferred_username') }}</p>
+
+    <div class="profile-actions">
+        <a class="btn" href="/api/logout">Выйти</a>
+        <button class="btn" id="btn-load-my-profile" type="button">Загрузить профиль (API)</button>
+    </div>
+
+    <hr />
+
+    <section class="create-post">
+        <h2>Создать пост</h2>
+        <form id="create-post-form">
+            <input type="text" name="title" placeholder="Заголовок" required />
+            <textarea name="content" placeholder="Содержимое" required></textarea>
+            <button class="btn primary" type="submit">Создать</button>
+        </form>
+        <div id="create-post-result" role="status" aria-live="polite"></div>
+        <div id="my-posts" class="post-list" aria-live="polite"></div>
+    </section>
+
+    <section class="manage-posts">
+        <h2>Работа с постом по ID</h2>
+        <form id="get-post-form">
+            <input type="text" name="post_id" placeholder="ID поста" required />
+            <button class="btn" type="submit">Получить</button>
+            <button class="btn" id="btn-delete-post" type="button">Удалить</button>
+        </form>
+        <pre id="post-output" aria-live="polite"></pre>
+    </section>
+</section>
+
+<script src="/static/app.js" defer></script>
+{% else %}
+<section class="hero">
+    <h1>Добро пожаловать</h1>
+    <p>Войдите через Keycloak, чтобы получить доступ к защищенной странице.</p>
+    <a class="btn primary" href="/api/login/callback">Войти</a>
+</section>
+{% endif %}
+{% endblock %}
