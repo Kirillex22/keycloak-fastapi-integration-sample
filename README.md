@@ -1,4 +1,4 @@
-# Установка Keycloak
+## Установка Keycloak
 
 ```bash
     docker run -d \
@@ -11,20 +11,27 @@
     start-dev
 ```
 
-# Запуск
+## Конфигурация
 
-## Venv
+1) Откройте Keycloak
+2) Создайте `realm` и `client`, сконфигурируйте их на свое усмотрение
+3) Скопируйте `secret` клиента
+4) Заполните `.env.example` и переименуйте в `.env`
+
+## Запуск
+
+### Venv
 ```bash
     python -m venv .venv
 ```
 
-## Requirements
+### Requirements
 ```bash
     source .venv/bin/activate
     pip install -r requirements.txt
 ```
 
-## Launch
+### Launch
 
 ```bash
     python -m src.main

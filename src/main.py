@@ -69,15 +69,6 @@ async def auth_exception_handler(request: Request, exc: StarletteHTTPException):
     # For other HTTP errors return a proper JSON response (avoid re-raising which caused 500s)
     return JSONResponse({"detail": exc.detail or "Error"}, status_code=exc.status_code)
 
-
-@app.get("/favicon.ico")
-async def favicon():
-    # If you add a favicon at src/templates/static/favicon.ico it will be served; otherwise return no content
-    favicon_path = Path(settings.BASE_DIR) / "src" / "templates" / "static" / "favicon.ico"
-    if favicon_path.exists():
-        return RedirectResponse(url="/static/favicon.ico")
-    return Response(status_code=204)
-
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     # Public landing page with login button
@@ -89,4 +80,4 @@ async def protected_page(request: Request, user: dict = Depends(get_current_user
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("src.main:app", port=8000, reload=True)
+    uvicorn.run("src.main:app", host="localhost", port=8000, reload=True)
